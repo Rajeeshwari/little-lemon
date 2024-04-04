@@ -3,8 +3,8 @@ package com.example.little_lemon
 import android.content.Context
 import android.content.SharedPreferences
 import android.widget.Toast
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,6 +18,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 
 import androidx.compose.runtime.Composable
@@ -38,6 +39,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 
 import com.example.little_lemon.R
+import com.example.little_lemon.ui.theme.LittleLemonColor
 
 
 //Shared Preference
@@ -71,18 +73,13 @@ fun Onboarding(navController: NavHostController){
     val context = LocalContext.current
 
     val preferencesManager = remember { PreferencesManager(context) }
-    val firstNameData = remember { mutableStateOf(preferencesManager.getData("firstName", "")) }
-    val lastNameData = remember { mutableStateOf(preferencesManager.getData("lastName", "")) }
-    val emailData = remember { mutableStateOf(preferencesManager.getData("email", "")) }
-
-
     var firstName by rememberSaveable { mutableStateOf("") }
     var lastName by rememberSaveable { mutableStateOf("") }
     var email by rememberSaveable {mutableStateOf("")}
 
     Column(
-        horizontalAlignment = Alignment.Start,
-        verticalArrangement = Arrangement.Top
+       // horizontalAlignment = Alignment.Start,
+        //verticalArrangement = Arrangement.Top
 
     ) {
 
@@ -92,22 +89,25 @@ fun Onboarding(navController: NavHostController){
                 id = R.drawable.logo
             ),
             contentDescription = "Logo Image",alignment = Alignment.Center,
-            modifier = Modifier.size(400.dp, 200.dp)
-                .padding(30.dp)
-
+            modifier = Modifier.size(300.dp, 130.dp)
+                .padding(start= 60.dp,top =0.dp,bottom =10.dp)
+                .align(Alignment.Start)
             )
 
         //Lets get to know text
-        Card(  modifier = Modifier.size(600.dp,50.dp)
-            ,//colors =CardDefaults.cardColors( Color(0xFF495e57))
+        Card(  modifier = Modifier.size(600.dp,100.dp)
+            , backgroundColor=LittleLemonColor.green,
             shape = RectangleShape) {
-            Text(text = "Lets get to know you",
-                modifier = Modifier.padding(10.dp).align(Alignment.CenterHorizontally),
+            Text(
+                text = "Lets get to know you",
+                modifier = Modifier
+                    .padding(start = 100.dp, top = 30.dp, bottom = 10.dp),
                 color = Color(0xFFEDEFEE),
-                fontWeight = FontWeight.Bold)
+                fontWeight = FontWeight.Bold,
+                style = MaterialTheme.typography.titleLarge,
+            )
         }
-
-        Text(text = "Personal Information",
+        Text(text = "Personal information",
             modifier = Modifier.padding(10.dp,top =30.dp,end =0.dp,bottom=30.dp),
             fontWeight = FontWeight.Bold,
             fontSize = 30.sp)
@@ -117,9 +117,9 @@ fun Onboarding(navController: NavHostController){
             value = firstName,
             singleLine =true,
             colors = TextFieldDefaults.textFieldColors(
-                //containerColor = Color.White,
+                backgroundColor =   Color.White,
                 cursorColor = Color.Black,
-                focusedIndicatorColor = Color.Black
+                focusedIndicatorColor = LittleLemonColor.charcoal
             ),
             onValueChange = { firstName = it },
             shape = RoundedCornerShape(10.dp),
@@ -132,7 +132,7 @@ fun Onboarding(navController: NavHostController){
             value = lastName,
             singleLine =true,
             colors = TextFieldDefaults.textFieldColors(
-                //containerColor = Color.White,
+                backgroundColor =   Color.White,
                 cursorColor = Color.Black,
                 focusedIndicatorColor = Color.Black
             ),
@@ -147,7 +147,7 @@ fun Onboarding(navController: NavHostController){
             value = email,
 
             colors = TextFieldDefaults.textFieldColors(
-                //containerColor = Color.White,
+                backgroundColor =   Color.White,
                 cursorColor = Color.Black,
                 focusedIndicatorColor = Color.Black
             ),
@@ -162,8 +162,8 @@ fun Onboarding(navController: NavHostController){
 
         //button to register
         Button(modifier = Modifier.fillMaxWidth(1f)
-            .padding(10.dp,top =50.dp,end=0.dp,bottom=0.dp),
-
+            .padding(10.dp,top =50.dp,end=0.dp,bottom=0.dp)
+            .size(50.dp),
 
             onClick = {
                 if (firstName.isBlank()|| lastName.isBlank() || email.isBlank()){
@@ -186,6 +186,7 @@ fun Onboarding(navController: NavHostController){
 
 
             },
+            border= BorderStroke(1.dp, LittleLemonColor.peach),
             shape = RoundedCornerShape(10.dp),
             colors = ButtonDefaults.buttonColors(
                 Color(0xFFF4CE14)
@@ -193,7 +194,9 @@ fun Onboarding(navController: NavHostController){
         ) {
             Text(
                 text = "Register",
-                color = Color(0xFF333333)
+                color = Color(0xFF333333),
+                style =MaterialTheme.typography.bodyLarge,
+                fontWeight=FontWeight.Bold
             )
         }
 

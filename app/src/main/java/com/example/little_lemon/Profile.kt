@@ -1,6 +1,7 @@
 package com.example.little_lemon
 
 import android.widget.Toast
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,6 +14,7 @@ import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -25,6 +27,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.little_lemon.ui.theme.LittleLemonColor
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -38,8 +41,7 @@ fun Profile(navController: NavController){
     val emailData=preferencesManager.getData("email","")
 
     Column(
-        horizontalAlignment = Alignment.Start,
-        verticalArrangement = Arrangement.Top
+
 
     ) {
 
@@ -49,22 +51,23 @@ fun Profile(navController: NavController){
                 id = R.drawable.logo
             ),
             contentDescription = "Logo Image", alignment = Alignment.Center,
-            modifier = Modifier.size(400.dp, 200.dp)
+            modifier = Modifier.size(400.dp, 120.dp)
                 .padding(30.dp)
 
         )
         Text(text = "Personal Information",
-            modifier = Modifier.padding(10.dp,top =30.dp,end =0.dp,bottom=30.dp),
+            modifier = Modifier.padding(10.dp,top =100.dp,end =0.dp,bottom=30.dp),
             fontWeight = FontWeight.Bold,
-            fontSize = 30.sp)
+            fontSize = 20.sp)
 
         Text(text = "FirstName",modifier = Modifier.padding(10.dp))
         OutlinedTextField(
             value = firstNameData,
             readOnly = true,
             colors = TextFieldDefaults.textFieldColors(
-                //containerColor = Color.White,
-                focusedIndicatorColor = Color.DarkGray
+                backgroundColor =   Color.White,
+                cursorColor = Color.Black,
+               focusedIndicatorColor = Color.Gray
             ),
             onValueChange = { firstNameData },
             shape = RoundedCornerShape(10.dp),
@@ -76,8 +79,9 @@ fun Profile(navController: NavController){
             value = secondNameData,
             readOnly = true,
             colors = TextFieldDefaults.textFieldColors(
-              //  containerColor = Color.White,
-                focusedIndicatorColor = Color.DarkGray
+                backgroundColor =   Color.White,
+                cursorColor = Color.Black,
+                focusedIndicatorColor = Color.Gray
             ),
             onValueChange = { secondNameData },
             shape = RoundedCornerShape(10.dp),
@@ -90,8 +94,9 @@ fun Profile(navController: NavController){
             value = emailData,
             readOnly = true,
             colors = TextFieldDefaults.textFieldColors(
-               // containerColor = Color.White,
-                focusedIndicatorColor = Color.DarkGray
+                backgroundColor =   Color.White,
+                cursorColor = Color.Black,
+                focusedIndicatorColor = Color.Gray
             ),
 
             onValueChange = {emailData },
@@ -103,8 +108,8 @@ fun Profile(navController: NavController){
         /* Button to logout */
 
         Button(modifier = Modifier.fillMaxWidth(1f)
-            .padding(10.dp,top =50.dp,end=0.dp,bottom=0.dp),
-
+            .padding(10.dp,top =120.dp,end=0.dp,bottom=0.dp)
+            .size(50.dp),
 
             onClick = {
                 preferencesManager.remove("firstName")
@@ -113,14 +118,17 @@ fun Profile(navController: NavController){
 
                 navController.navigate(Onboarding.route )
             },
+            border= BorderStroke(1.dp, LittleLemonColor.peach),
             shape = RoundedCornerShape(10.dp),
             colors = ButtonDefaults.buttonColors(
-                Color(0xFFF4CE14)
+                LittleLemonColor.yellow
             )
         ) {
             Text(
                 text = "Log Out",
-                color = Color(0xFF333333)
+                color = Color(0xFF333333),
+                style = MaterialTheme.typography.bodyLarge,
+                fontWeight=FontWeight.Bold
             )
         }
 

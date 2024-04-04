@@ -2,8 +2,6 @@ package com.example.little_lemon
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.widget.ImageButton
-import android.widget.ImageView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -14,21 +12,16 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Divider
-import androidx.compose.material.IconButton
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -41,7 +34,6 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -49,14 +41,11 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
+
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.MutableLiveData
+
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import androidx.room.Room
 import com.example.little_lemon.ui.theme.LittleLemonColor
@@ -111,7 +100,8 @@ class MainActivity : ComponentActivity() {
             LittleLemonTheme {
                 // A surface container using the 'background' color from the theme
 
-                val databaseMenuItems by database.menuItemDao().getAll().observeAsState(emptyList())
+                val databaseMenuItems by database.menuItemDao()
+                    .getAll().observeAsState(emptyList())
 
                 var orderMenuItems by remember { mutableStateOf(false) }
 
@@ -153,6 +143,10 @@ private fun MenuItemsList(items: List<MenuItemRoom>) {
     {
         items(items = items,
             itemContent = { menuItem ->
+                Divider(
+                    modifier = Modifier.padding(start = 8.dp, end = 8.dp),
+                    thickness = 1.dp , color= LittleLemonColor.cloud
+                )
                 Card() {
                     Row(
                         modifier = Modifier.fillMaxWidth()
@@ -161,19 +155,22 @@ private fun MenuItemsList(items: List<MenuItemRoom>) {
                         Column {
                             Text(text = menuItem.title,
                                 style = MaterialTheme.typography.titleMedium,
-                                fontWeight = FontWeight.Bold)
+                                fontWeight = FontWeight.Bold,
+                                modifier =Modifier.padding(top=5.dp,bottom =5.dp))
                             Text(
                                 text = menuItem.description,
                                 modifier = Modifier.fillMaxWidth(
                                     0.75F
                                 ).padding(top = 5.dp, bottom = 5.dp),
                                     style = MaterialTheme.typography.bodyMedium,
-                                color = LittleLemonColor.charcoal)
+                                color = LittleLemonColor.charcoal,
+                                fontSize=16.sp)
 
                             Text(text = "$ "+menuItem.price.toString(),
-                                modifier= Modifier.padding(top=5.dp),
-                                style = MaterialTheme.typography.bodyLarge,
-                                color = LittleLemonColor.charcoal)
+                                modifier= Modifier.padding(top=5.dp,bottom=5.dp),
+                                style = MaterialTheme.typography.titleMedium,
+                                color = LittleLemonColor.charcoal,
+                                fontWeight= FontWeight.Bold)
 
                         }
                         GlideImage(model = menuItem.image,
@@ -183,10 +180,7 @@ private fun MenuItemsList(items: List<MenuItemRoom>) {
 
                     }
                 }
-                Divider(
-                    modifier = Modifier.padding(start = 8.dp, end = 8.dp),
-                    thickness = 1.dp , color= LittleLemonColor.cloud
-                )
+
                 })
 
     }
@@ -270,13 +264,14 @@ fun UpperPanel() {
         fontWeight= FontWeight.Bold,
         style = MaterialTheme.typography.titleLarge,
         color = LittleLemonColor.charcoal,
+        fontSize=28.sp,
         modifier = Modifier
-            .padding(10.dp)
+            .padding(start=10.dp,top =30.dp,bottom= 30.dp)
 
     )
     menuCategory()
     if (search != "" && search!= "Enter Search Phrase" ){
-        MenuItemsList(menuItems.filter { (it.title.lowercase()).contains(search.lowercase()) })
+        MenuItemsList(menuItems.filter { it.title.contains(search,ignoreCase=true)  })
     }
     else if(search.isBlank()){
         MenuItemsList(menuItems)

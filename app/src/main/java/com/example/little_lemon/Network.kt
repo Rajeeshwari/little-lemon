@@ -19,9 +19,9 @@ data class MenuNetwork (
 
 
 @Serializable
-
+@SerialName("category")
 data class MenuItemNetwork (
-    @SerialName("id")
+
     val id: Int,
     val title: String,
     val description: String,

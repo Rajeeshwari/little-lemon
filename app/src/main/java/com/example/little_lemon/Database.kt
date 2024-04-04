@@ -23,7 +23,7 @@ data class MenuItemRoom(
 
 @Dao
 interface MenuItemDao {
-    @Query("SELECT * FROM MenuItemRoom")
+    @Query("SELECT * FROM MenuItemRoom ORDER BY category DESC ")
     fun getAll(): LiveData<List<MenuItemRoom>>
 
     @Insert
