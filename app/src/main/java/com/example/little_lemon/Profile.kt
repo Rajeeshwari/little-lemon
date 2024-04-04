@@ -8,12 +8,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -63,7 +63,7 @@ fun Profile(navController: NavController){
             value = firstNameData,
             readOnly = true,
             colors = TextFieldDefaults.textFieldColors(
-                containerColor = Color.White,
+                //containerColor = Color.White,
                 focusedIndicatorColor = Color.DarkGray
             ),
             onValueChange = { firstNameData },
@@ -76,7 +76,7 @@ fun Profile(navController: NavController){
             value = secondNameData,
             readOnly = true,
             colors = TextFieldDefaults.textFieldColors(
-                containerColor = Color.White,
+              //  containerColor = Color.White,
                 focusedIndicatorColor = Color.DarkGray
             ),
             onValueChange = { secondNameData },
@@ -90,7 +90,7 @@ fun Profile(navController: NavController){
             value = emailData,
             readOnly = true,
             colors = TextFieldDefaults.textFieldColors(
-                containerColor = Color.White,
+               // containerColor = Color.White,
                 focusedIndicatorColor = Color.DarkGray
             ),
 

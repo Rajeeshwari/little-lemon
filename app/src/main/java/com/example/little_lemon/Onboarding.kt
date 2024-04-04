@@ -16,13 +16,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
+
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
+
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -102,8 +99,8 @@ fun Onboarding(navController: NavHostController){
 
         //Lets get to know text
         Card(  modifier = Modifier.size(600.dp,50.dp)
-            ,colors =CardDefaults.cardColors( Color(0xFF495e57))
-            ,shape = RectangleShape) {
+            ,//colors =CardDefaults.cardColors( Color(0xFF495e57))
+            shape = RectangleShape) {
             Text(text = "Lets get to know you",
                 modifier = Modifier.padding(10.dp).align(Alignment.CenterHorizontally),
                 color = Color(0xFFEDEFEE),
@@ -120,7 +117,7 @@ fun Onboarding(navController: NavHostController){
             value = firstName,
             singleLine =true,
             colors = TextFieldDefaults.textFieldColors(
-                containerColor = Color.White,
+                //containerColor = Color.White,
                 cursorColor = Color.Black,
                 focusedIndicatorColor = Color.Black
             ),
@@ -135,7 +132,7 @@ fun Onboarding(navController: NavHostController){
             value = lastName,
             singleLine =true,
             colors = TextFieldDefaults.textFieldColors(
-                containerColor = Color.White,
+                //containerColor = Color.White,
                 cursorColor = Color.Black,
                 focusedIndicatorColor = Color.Black
             ),
@@ -148,13 +145,13 @@ fun Onboarding(navController: NavHostController){
         Text(text = "Email",modifier = Modifier.padding(10.dp))
         OutlinedTextField(
             value = email,
-            singleLine =true,
+
             colors = TextFieldDefaults.textFieldColors(
-                containerColor = Color.White,
+                //containerColor = Color.White,
                 cursorColor = Color.Black,
                 focusedIndicatorColor = Color.Black
             ),
-
+            singleLine =true,
             onValueChange = {email= it },
             shape = RoundedCornerShape(10.dp),
             modifier = Modifier.fillMaxWidth(1f).padding(10.dp)
@@ -181,9 +178,7 @@ fun Onboarding(navController: NavHostController){
                     preferencesManager.saveData("firstName",firstName)
                     preferencesManager.saveData("lastName",lastName)
                     preferencesManager.saveData("email",email)
-                    //firstNameData.value = firstName
-                    //lastNameData.value = lastName
-                    //emailData.value = email
+
                     // Navigating to Home screen after registration
                     navController.navigate(Home.route)
 
